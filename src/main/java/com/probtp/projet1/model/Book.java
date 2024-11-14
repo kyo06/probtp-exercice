@@ -2,11 +2,24 @@ package com.probtp.projet1.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+	
+	@Column
 	private String title;
+	@Column
 	private String author;
+	@Column
 	private String contenu;
 
 
