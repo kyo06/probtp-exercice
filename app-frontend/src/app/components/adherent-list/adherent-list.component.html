@@ -1,0 +1,6 @@
+<p>Liste des adhérents</p>
+<div *ngIf="adherents$ | async as adherents">
+  <ul>
+    <li *ngFor="let adherent of adherents">{{ adherent.nom }} {{ adherent.prenom }}</li>
+  </ul>
+</div>

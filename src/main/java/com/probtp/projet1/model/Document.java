@@ -20,7 +20,7 @@ public class Document implements Serializable {
 	private Integer id;
 	
 	@Column
-	private Date dateContact;
+	private String title;
 	@Column
 	private TypeContactEnum typeContact;
 	@Column
