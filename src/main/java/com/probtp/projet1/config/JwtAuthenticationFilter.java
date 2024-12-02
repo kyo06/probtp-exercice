@@ -47,13 +47,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // get username from token
             String username = jwtTokenProvider.getUsername(token);
             
-            System.out.println("WAZAAA : " + username);
-            
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            
-            System.out.println("WAZAAA : " + userDetails);
-            
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
@@ -63,8 +58,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            
-            System.out.println("WAZAAA : " + authenticationToken);
         }
 
         filterChain.doFilter(request, response);

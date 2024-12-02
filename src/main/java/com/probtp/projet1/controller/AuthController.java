@@ -3,6 +3,7 @@ package com.probtp.projet1.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
     @Autowired

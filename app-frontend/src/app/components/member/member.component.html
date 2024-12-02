@@ -1,0 +1,14 @@
+<h2>Member Dashboard</h2>
+    <p>Welcome to the member area!</p>
+    <button (click)="logout()">Logout</button>
+
+
+    <div *hasRole="['ADMIN']">
+        <h2>Admin Section</h2>
+        <p>This content is only visible to users with the admin role.</p>
+      </div>
+      
+      <div *hasRole="['USER']">
+        <h2>User Section</h2>
+        <p>This content is visible to users with user or admin roles.</p>
+      </div>

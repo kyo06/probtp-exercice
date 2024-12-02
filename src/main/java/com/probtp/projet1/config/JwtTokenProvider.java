@@ -21,16 +21,20 @@ public class JwtTokenProvider {
     private long jwtExpirationDate = 3600000; //1h = 3600s and 3600*1000 = 3600000 milliseconds
 
     public String generateToken(Authentication authentication) {
-
         String username = authentication.getName();
         Date currentDate = new Date();
-
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
+
+        // Get user roles from authentication
+        String[] roles = authentication.getAuthorities().stream()
+                .map(authority -> authority.getAuthority())
+                .toArray(String[]::new);
 
         String token = Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
                 .expiration(expireDate)
+                .claim("roles", roles) // Add roles to token claims
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
 
@@ -43,13 +47,22 @@ public class JwtTokenProvider {
 
     // extract username from JWT token
     public String getUsername(String token){
-
         return Jwts.parser()
                 .verifyWith((SecretKey) key())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
+    }
+
+    // Get roles from JWT token
+    public String[] getRoles(String token) {
+        return Jwts.parser()
+                .verifyWith((SecretKey) key())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("roles", String[].class);
     }
 
     // validate JWT token
@@ -59,6 +72,5 @@ public class JwtTokenProvider {
                 .build()
                 .parse(token);
         return true;
-
     }
 }
